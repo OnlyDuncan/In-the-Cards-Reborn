@@ -1,55 +1,83 @@
 import { defineStore } from 'pinia'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '@/firebase'
+// @ts-ignore - Vue 3 import issue in TypeScript
+import { ref, computed } from 'vue'
+import { tarotCards } from '@/data/tarotCardData'
 
-export interface TarotCard {
-  id: string
+export interface CardData {
   name: string
-  description: string
+  orientation: string
+  description?: string
   meaning?: string
-  // Add other card properties as needed
+  image?: string
 }
 
-export const useTarotStore = defineStore('tarot', {
-  state: () => ({
-    cards: [] as TarotCard[],
-    loading: false,
-    error: null as string | null
-  }),
+export const useTarotStore = defineStore('tarot', () => {
+    // State
+    const allCards = ref<CardData[][]>([])
+    const loading = ref(false)
+    const error = ref<Error | null>(null)
+    const isInitialized = ref(false)
 
-  actions: {
-    async fetchCards() {
-      try {
-        this.loading = true
-        this.error = null
-        
-        const cardsRef = collection(db, 'cards')
-        const snapshot = await getDocs(cardsRef)
-        
-        const cardsList: TarotCard[] = []
-        snapshot.forEach(doc => {
-          console.log(doc.id, doc.data())
-          cardsList.push({
-            id: doc.id,
-            ...doc.data()
-          } as TarotCard)
-        })
-        
-        this.cards = cardsList
-      } catch (err) {
-        console.error('Error fetching cards:', err)
-        this.error = 'Failed to fetch cards from database'
-      } finally {
-        this.loading = false
-      }
-    },
+    // Getters
+    const libraryCards = computed(() => 
+        allCards.value.map((cardPair: any[]) => cardPair[0]).filter(Boolean)
+    )
 
-    getCardById(id: string): TarotCard | undefined {
-      return this.cards.find((card: TarotCard) => card.id === id)
-    },
+    const hasCards = computed(() => allCards.value.length > 0)
 
-    clearError() {
-      this.error = null
+    // Actions
+    const fetchCards = async () => {
+        if (isInitialized.value && hasCards.value) {
+            return
+        }
+        loading.value = true
+        error.value = null
+
+        try {
+            allCards.value = tarotCards
+            isInitialized.value = true
+            console.log('Cards fetched successfully', { cardCount: tarotCards.length })
+        } catch (err: any) {
+            console.error('Error fetching cards:', err)
+            error.value = err
+        } finally {
+            loading.value = false
+        }
     }
-  }
+
+    const forceRefresh = async () => {
+        isInitialized.value = false
+        await fetchCards()
+    }
+
+    const getRandomCard = () => {
+        if (libraryCards.value.length === 0) return null
+        const randomIndex = Math.floor(Math.random() * libraryCards.value.length)
+        return libraryCards.value[randomIndex]
+    }
+
+    const getCardByName = (name: string, orientation: 'Upright' | 'Reversed' = 'Upright') => {
+        const cardPair = allCards.value.find((pair: any) =>
+            pair.some((card: any) => card.name === name)
+        )
+        return cardPair?.find((card: any) => card.orientation === orientation) || null
+    }
+
+    return {
+        // State
+        allCards,
+        loading,
+        error,
+        isInitialized,
+
+        // Getters
+        libraryCards,
+        hasCards,
+
+        // Actions
+        fetchCards,
+        forceRefresh,
+        getRandomCard,
+        getCardByName
+    }
 })

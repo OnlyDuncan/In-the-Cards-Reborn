@@ -1,41 +1,32 @@
+<script setup lang="ts">
+import Spread1 from "@/components/Spread1.vue";
+import Library from "@/components/Library.vue";
+import { useTarotStore } from "@/stores/tarotStore";
+
+const store = useTarotStore();
+
+// Trigger fetch if needed
+if (!store.isInitialized && !store.loading) {
+  store.fetchCards();
+}
+</script>
+
 <template>
-  <div class="home">
-    <h1>Home View</h1>
-    
-    <!-- Show loading state -->
-    <div v-if="loading">Loading cards...</div>
-    
-    <!-- Show error if any -->
-    <div v-if="error" class="error">{{ error }}</div>
-    
-    <!-- Display cards -->
-    <div v-if="!loading && !error" class="cards-container">
-      <div v-for="card in cards" :key="card.id" class="card">
-        <h3>{{ card.name }}</h3>
-        <p>{{ card.description }}</p>
-      </div>
+  <div class="flex" style="background-color: #cffafbff">
+    <div v-if="store.loading">Loading cards...</div>
+
+    <div v-else-if="store.error">Something went wrong.</div>
+
+    <div v-else-if="store.hasCards" class="flex-col">
+      <!--
+      <Library :cards="store.libraryCards" />
+      -->
+      <Spread1 :cards="store.allCards" />
     </div>
+
+    <div v-else>No cards available.</div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted } from 'vue'
-import { useTarotStore } from '@/stores/tarotStore'
-
-// Access the store
-const tarotStore = useTarotStore()
-
-// Destructure reactive properties from the store
-const { cards, loading, error } = tarotStore
-
-// Access store actions
-const { fetchCards } = tarotStore
-
-// Fetch cards when component mounts
-onMounted(() => {
-  fetchCards()
-})
-</script>
 
 <style scoped>
 .home {
@@ -61,6 +52,6 @@ onMounted(() => {
   padding: 15px;
   border-radius: 8px;
   background: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>

@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+.reversed {
+  transform: rotate(180deg);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #404355;
+  width: 40rem;
+  max-width: 90%;
+  max-height: 90vh;
+  margin: 5vh auto;
+  padding: 1rem;
+  overflow-y: auto;
+  border-radius: 0.5rem;
+}
