@@ -17,6 +17,7 @@ export const useTarotStore = defineStore('tarot', () => {
     const loading = ref(false)
     const error = ref<Error | null>(null)
     const isInitialized = ref(false)
+    const selectedSpread = ref<"" | "one" | "three" | "five">("")
 
     // Getters
     const libraryCards = computed(() => 
@@ -69,6 +70,7 @@ export const useTarotStore = defineStore('tarot', () => {
         loading,
         error,
         isInitialized,
+        selectedSpread,
 
         // Getters
         libraryCards,

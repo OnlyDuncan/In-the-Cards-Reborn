@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import HomeView from './views/HomeView.vue'
+import Navigation from "@/components/Navigation.vue";
+import HomeView from "./views/HomeView.vue";
 </script>
 
 <template>
-  <HomeView />
+  <Navigation />
+  <router-view />
 </template>
 
 <style scoped>

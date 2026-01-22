@@ -2,7 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles */
+/* Site Background */
+
+.red-background {
+  background-color: #7e0d27;
+  min-height: 100vh;
+  margin: 0;
+  display: block;
+  border-top: 8px solid #8b5d81;
+  border-left: 8px solid #8b5d81;
+  border-right: 8px solid #8b5d81;
+}
+
+/* Text */
+.white-text {
+    color: white;
+}
+
+/* Buttons */
+.button-gold {
+    background-color: "#c6a664";
+    color: white;
+}
+
+/* Other Styles */
 .reversed {
   transform: rotate(180deg);
 }
@@ -17,7 +40,7 @@
 
 .modal-content {
   position: relative;
-  background-color: #404355;
+  background-color: #B87A8a;
   width: 40rem;
   max-width: 90%;
   max-height: 90vh;

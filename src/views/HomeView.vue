@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Spread1 from "@/components/Spread1.vue";
-import Library from "@/components/Library.vue";
+import Spread2 from "@/components/Spread2.vue";
+import Spread3 from "@/components/Spread3.vue";
 import { useTarotStore } from "@/stores/tarotStore";
 
 const store = useTarotStore();
@@ -12,16 +13,26 @@ if (!store.isInitialized && !store.loading) {
 </script>
 
 <template>
-  <div class="flex" style="background-color: #cffafbff">
+  <div class="flex">
     <div v-if="store.loading">Loading cards...</div>
 
     <div v-else-if="store.error">Something went wrong.</div>
 
     <div v-else-if="store.hasCards" class="flex-col">
-      <!--
-      <Library :cards="store.libraryCards" />
-      -->
-      <Spread1 :cards="store.allCards" />
+      <div class="mt-6">
+        <Spread1
+          v-if="store.selectedSpread === 'one'"
+          :cards="store.allCards"
+        />
+        <Spread3
+          v-else-if="store.selectedSpread === 'five'"
+          :cards="store.allCards"
+        />
+        <Spread2
+          v-else
+          :cards="store.allCards"
+        />
+      </div>
     </div>
 
     <div v-else>No cards available.</div>

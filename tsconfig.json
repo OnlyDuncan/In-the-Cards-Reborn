@@ -9,6 +9,6 @@
     "module": "ESNext",
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],
-    "types": ["vue/ref-macros"]
+    "types": ["vue/ref-macros", "node"]
   }
 }
