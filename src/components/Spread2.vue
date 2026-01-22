@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import CardContents from "./CardContents.vue";
 import deckbuilder from "@/composables/deckbuilder";
+// @ts-ignore - Vue 3 import issue in TypeScript
 import { ref } from "vue";
 
+type TarotCard = {
+  title: string;
+  orientation: string;
+  image: string;
+  meaning: string;
+};
+
 const props = defineProps<{
-  cards: Array<{
-    Title: string;
-    Orientation: string;
-    Image: string;
-    Meaning: string;
-  }>;
+  cards: TarotCard[][];
 }>();
 
 const userQuestion = ref("");
 const aiAnswer = ref("");
-const spread = ref(deckbuilder(props.cards).slice(0, 3));
+const spread = ref<TarotCard[]>(deckbuilder(props.cards).slice(0, 3));
 
 const reshuffle = () => {
   spread.value = deckbuilder(props.cards).slice(0, 3);
@@ -25,7 +28,7 @@ const handleUserQuestion = async () => {
     console.log("Ask the Cards clicked");
     console.log("Question:", userQuestion.value);
 
-    const cardTitles = spread.value.map((c) => c.title);
+    const cardTitles = spread.value.map((c: TarotCard) => c.title);
     console.log("Card titles payload:", cardTitles);
 
     const res = await fetch("http://127.0.0.1:5050/api/askCards", {

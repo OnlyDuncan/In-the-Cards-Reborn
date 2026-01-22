@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
+// @ts-ignore - Vue 3 import issue in TypeScript
 import { watch } from "vue";
 import Dropdown from "@/components/Dropdown.vue";
 import { useTarotStore } from "@/stores/tarotStore";
@@ -15,8 +16,8 @@ const spreadOptions = [
   { label: "Five Card Spread", value: "five" },
 ] as const;
 
-watch(selectedSpread, async (next) => {
-  if (!next) return; 
+watch(selectedSpread, async (next: "" | "one" | "three" | "five") => {
+  if (!next) return;
   if (router.currentRoute.value.path !== "/") {
     await router.push("/");
   }
@@ -24,7 +25,7 @@ watch(selectedSpread, async (next) => {
 
 watch(
   () => router.currentRoute.value.path,
-  (path) => {
+  (path: string) => {
     if (path !== "/") {
       selectedSpread.value = "";
     }
@@ -39,29 +40,28 @@ watch(
     <span class="font-semibold">In the Cards</span>
 
     <div class="flex flex-row gap-3">
+      <button
+        class="px-3 py-2 border rounded hover:bg-gray-50"
+        type="button"
+        @click="router.push('/about')"
+      >
+        About
+      </button>
 
-        <button
-            class="px-3 py-2 border rounded hover:bg-gray-50"
-            type="button"
-            @click="router.push('/about')"
-        >
-            About
-        </button>
+      <Dropdown
+        label=""
+        :options="spreadOptions"
+        v-model="selectedSpread"
+        placeholder="Choose a spread"
+      />
 
-        <Dropdown
-            label=""
-            :options="spreadOptions"
-            v-model="selectedSpread"
-            placeholder="Choose a spread"
-        />
-
-        <button
-            class="px-3 py-2 border rounded hover:bg-gray-50"
-            type="button"
-            @click="router.push('/library')"
-        >
-            Library
-        </button>
+      <button
+        class="px-3 py-2 border rounded hover:bg-gray-50"
+        type="button"
+        @click="router.push('/library')"
+      >
+        Library
+      </button>
     </div>
   </nav>
 </template>

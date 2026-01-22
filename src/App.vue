@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Navigation from "@/components/Navigation.vue";
-import HomeView from "./views/HomeView.vue";
 </script>
 
 <template>
