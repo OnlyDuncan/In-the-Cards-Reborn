@@ -13,13 +13,13 @@ if (!store.isInitialized && !store.loading) {
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex w-full justify-center">
     <div v-if="store.loading">Loading cards...</div>
 
     <div v-else-if="store.error">Something went wrong.</div>
 
-    <div v-else-if="store.hasCards" class="flex-col">
-      <div class="mt-6">
+    <div v-else-if="store.hasCards" class="flex flex-col items-center w-full">
+      <div class="mt-6 w-full flex-col justify-center mx-auto">
         <Spread1
           v-if="store.selectedSpread === 'one'"
           :cards="store.allCards"
@@ -28,10 +28,7 @@ if (!store.isInitialized && !store.loading) {
           v-else-if="store.selectedSpread === 'five'"
           :cards="store.allCards"
         />
-        <Spread2
-          v-else
-          :cards="store.allCards"
-        />
+        <Spread2 v-else :cards="store.allCards" />
       </div>
     </div>
 

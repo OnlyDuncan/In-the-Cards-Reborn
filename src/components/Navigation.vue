@@ -41,7 +41,7 @@ watch(
 
     <div class="flex flex-row gap-3">
       <button
-        class="px-3 py-2 border rounded hover:bg-gray-50"
+        class="px-3 py-2 button-gold rounded hover:bg-gray-50"
         type="button"
         @click="router.push('/about')"
       >
@@ -56,7 +56,7 @@ watch(
       />
 
       <button
-        class="px-3 py-2 border rounded hover:bg-gray-50"
+        class="px-3 py-2 button-gold rounded hover:bg-gray-50"
         type="button"
         @click="router.push('/library')"
       >

@@ -36,7 +36,7 @@ const selectOption = (value: string) => {
 
     <button
       type="button"
-      class="w-full px-4 py-2 border rounded bg-white text-left"
+      class="w-full px-4 py-2 rounded bg-white text-left button-gold"
       @click="isOpen = !isOpen"
     >
       {{ selectedLabel }}
@@ -44,13 +44,13 @@ const selectOption = (value: string) => {
 
     <div
       v-if="isOpen"
-      class="absolute z-10 mt-2 w-full border rounded bg-white shadow"
+      class="absolute z-10 mt-2 w-full border rounded bg-white shadow button-gold"
     >
       <button
         v-for="opt in options"
         :key="opt.value"
         type="button"
-        class="block w-full px-4 py-2 text-left hover:bg-gray-100"
+        class="block w-full px-4 py-2 text-left hover:bg-gray-100 button-gold"
         @click="selectOption(opt.value)"
       >
         {{ opt.label }}

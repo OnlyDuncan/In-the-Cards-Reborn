@@ -2,7 +2,7 @@
 import CardContents from "./CardContents.vue";
 import deckbuilder from "@/composables/deckbuilder";
 // @ts-ignore - Vue 3 import issue in TypeScript
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 type TarotCard = {
   title: string;
@@ -18,9 +18,14 @@ const props = defineProps<{
 const userQuestion = ref("");
 const aiAnswer = ref("");
 const spread = ref<TarotCard[]>(deckbuilder(props.cards).slice(0, 5));
+const flippedCount = ref(0);
+
+const revealPrompt = computed(() => flippedCount.value === spread.value.length);
 
 const reshuffle = () => {
   spread.value = deckbuilder(props.cards).slice(0, 5);
+  userQuestion.value = "";
+  aiAnswer.value = "";
 };
 
 const handleUserQuestion = async () => {
@@ -59,17 +64,21 @@ const handleUserQuestion = async () => {
 
 <template>
   <div class="flex justify-center gap-8">
-    <CardContents v-for="(card, i) in spread" :key="i" v-bind="card" />
+    <CardContents v-for="(card, i) in spread" :key="i" v-bind="card" @flipped="flippedCount++" />
   </div>
 
-  <div class="flex justify-center mt-6">
+  <div class="flex justify-center mt-6 button-gold mx-auto w-40">
     <button @click="reshuffle">Reshuffle</button>
   </div>
 
-  <input v-model="userQuestion" placeholder="Ask your question..." />
-  <div v-if="aiAnswer" class="mt-6 text-center">
-    <strong>AI Answer:</strong>
-    <p>{{ aiAnswer }}</p>
+  <div v-if="revealPrompt" class="flex justify-center mx-auto mt-5 gap-3">
+    <input v-model="userQuestion" placeholder="Ask your question..." />
+    <div v-if="aiAnswer" class="mt-6 text-center">
+        <strong>AI Answer:</strong>
+        <p>{{ aiAnswer }}</p>
+    </div>
+    <div class="button-gold">
+        <button @click="handleUserQuestion">Ask the Cards</button>
+    </div>
   </div>
-  <button @click="handleUserQuestion">Ask the Cards</button>
 </template>

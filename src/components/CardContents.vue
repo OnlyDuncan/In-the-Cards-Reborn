@@ -2,22 +2,35 @@
 // @ts-ignore - Vue 3 import issue in TypeScript
 import { ref, computed } from "vue";
 
-const { title, orientation, image, meaning } = defineProps<{
+const {
+  title,
+  orientation,
+  image,
+  meaning,
+  flippable = true,
+  initiallyFlipped = false,
+} = defineProps<{
   title: string;
   orientation: "Upright" | "Reversed";
   image: string;
   meaning: string;
+  flippable?: boolean;
+  initiallyFlipped?: boolean;
 }>();
 
-const isFlipped = ref(false);
+const isFlipped = ref(initiallyFlipped);
 const isOpen = ref(false);
+const emit = defineEmits<{ (e: "flipped"): void }>();
 
 const orientationClass = computed(() => ({
   reversed: orientation === "Reversed",
 }));
 
 const flipCard = () => {
+  if (!flippable) return;
+  if (isFlipped.value) return;
   isFlipped.value = true;
+  emit("flipped");
 };
 </script>
 
@@ -25,7 +38,7 @@ const flipCard = () => {
   <div class="card-container" @click="flipCard">
     <div class="card" :class="{ flipped: isFlipped }">
       <!-- BACK (shown first) -->
-      <div class="card-face card-back">
+      <div v-if="!initiallyFlipped" class="card-face card-back">
         <img src="/Images/CardBack.webp" alt="Card Back" />
       </div>
 
@@ -45,11 +58,7 @@ const flipCard = () => {
   <div v-if="isOpen" class="modal-overlay" @click.self="isOpen = false">
     <div class="modal-content">
       <h1>{{ title }}</h1>
-      <img
-        :src="`${image}`"
-        :class="orientationClass"
-        alt="Tarot Card"
-      />
+      <img :src="`${image}`" :class="orientationClass" alt="Tarot Card" />
       <p>{{ meaning }}</p>
     </div>
   </div>

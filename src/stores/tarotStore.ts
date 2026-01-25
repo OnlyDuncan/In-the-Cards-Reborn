@@ -24,6 +24,26 @@ export const useTarotStore = defineStore('tarot', () => {
         allCards.value.map((cardPair: any[]) => cardPair[0]).filter(Boolean)
     )
 
+    const majorArcanaCards = computed(() =>
+        libraryCards.value.slice(0, 22)
+    )
+
+    const suitWands = computed(() =>
+        libraryCards.value.slice(22, 36)
+    )
+
+    const suitCups = computed(() =>
+        libraryCards.value.slice(36, 50)
+    )
+
+    const suitSwords = computed(() =>
+        libraryCards.value.slice(50, 64)
+    )
+
+    const suitPentacles = computed(() =>
+        libraryCards.value.slice(64, 79)
+    )
+
     const hasCards = computed(() => allCards.value.length > 0)
 
     // Actions
@@ -74,6 +94,11 @@ export const useTarotStore = defineStore('tarot', () => {
 
         // Getters
         libraryCards,
+        majorArcanaCards,
+        suitCups,
+        suitWands,
+        suitPentacles,
+        suitSwords,
         hasCards,
 
         // Actions

@@ -21,8 +21,12 @@
 
 /* Buttons */
 .button-gold {
-    background-color: "#c6a664";
+    background-color: #c6a664;
     color: white;
+}
+
+.button-gold:hover {
+    background-color: #b59654;
 }
 
 /* Other Styles */
