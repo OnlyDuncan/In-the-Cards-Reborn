@@ -63,7 +63,7 @@ const handleUserQuestion = async () => {
 </script>
 
 <template>
-  <div class="flex justify-center gap-8">
+  <div class="flex flex-col items-center md:flex-row justify-center gap-8">
     <CardContents v-for="(card, i) in spread" :key="i" v-bind="card" @flipped="flippedCount++" />
   </div>
 
@@ -72,13 +72,13 @@ const handleUserQuestion = async () => {
   </div>
 
   <div v-if="revealPrompt" class="flex justify-center mx-auto mt-5 gap-3">
-    <input v-model="userQuestion" placeholder="Ask your question..." />
+    <input v-model="userQuestion" class="pl-3" placeholder="Ask your question..." />
     <div v-if="aiAnswer" class="mt-6 text-center">
         <strong>AI Answer:</strong>
         <p>{{ aiAnswer }}</p>
     </div>
     <div class="button-gold">
-        <button @click="handleUserQuestion">Ask the Cards</button>
+        <button @click="handleUserQuestion" class="m-3">Ask the Cards</button>
     </div>
   </div>
 </template>

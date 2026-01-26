@@ -56,10 +56,10 @@ const flipCard = () => {
 
   <!-- Modal -->
   <div v-if="isOpen" class="modal-overlay" @click.self="isOpen = false">
-    <div class="modal-content">
-      <h1>{{ title }}</h1>
-      <img :src="`${image}`" :class="orientationClass" alt="Tarot Card" />
-      <p>{{ meaning }}</p>
+    <div class="modal-content flex flex-col">
+      <h1 class="text-white mb-5 flex justify-center">{{ title }}</h1>
+      <img :src="`${image}`" :class="orientationClass" class="modalImage" alt="Tarot Card" />
+      <p class="text-white m-5">{{ meaning }}</p>
     </div>
   </div>
 </template>
@@ -68,7 +68,7 @@ const flipCard = () => {
 .card-container {
   perspective: 1200px;
   width: 200px;
-  height: 300px;
+  height: 350px;
   cursor: pointer;
 }
 
@@ -88,12 +88,11 @@ const flipCard = () => {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
-  border-radius: 12px;
   overflow: hidden;
 }
 
 .card-back {
-  background: #222;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,10 +100,17 @@ const flipCard = () => {
 
 .card-front {
   transform: rotateY(180deg);
-  background: #fff;
+  background: transparent;
 }
 
 .reversed {
   transform: rotate(180deg);
+}
+
+.modalImage {
+    height: 450px;
+    width: auto;
+    aspect-ratio: 200 / 350;
+    margin: 0 auto;
 }
 </style>

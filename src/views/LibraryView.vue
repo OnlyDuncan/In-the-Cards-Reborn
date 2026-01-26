@@ -29,9 +29,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex">
-    <h1>Major Arcana</h1>
-    <ul class="flex flex-wrap gap-3">
+  <div class="flex flex-col m-5 justify-center ">
+    <h1 class="text-white mb-5">Major Arcana</h1>
+    <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in majorArcanaCards"
         :key="card.title + '-' + card.image"
@@ -40,8 +40,8 @@ onMounted(() => {
         <CardContents v-bind="card" :flippable="false" :initiallyFlipped="true" />
       </li>
     </ul>
-    <h1>Suit of Swords</h1>
-    <ul class="flex flex-wrap gap-3">
+    <h1 class="text-white mb-5">Suit of Swords</h1>
+    <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in suitSwords"
         :key="card.title + '-' + card.image"
@@ -50,8 +50,8 @@ onMounted(() => {
          <CardContents v-bind="card" :flippable="false" :initiallyFlipped="true" />
       </li>
     </ul>
-    <h1>Suit of Cups</h1>
-    <ul class="flex flex-wrap gap-3">
+    <h1 class="text-white mb-5">Suit of Cups</h1>
+    <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in suitCups"
         :key="card.title + '-' + card.image"
@@ -60,8 +60,8 @@ onMounted(() => {
          <CardContents v-bind="card" :flippable="false" :initiallyFlipped="true" />
       </li>
     </ul>
-    <h1>Suit of Wands</h1>
-    <ul class="flex flex-wrap gap-3">
+    <h1 class="text-white mb-5">Suit of Wands</h1>
+    <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in suitWands"
         :key="card.title + '-' + card.image"
@@ -70,8 +70,8 @@ onMounted(() => {
          <CardContents v-bind="card" :flippable="false" :initiallyFlipped="true" />
       </li>
     </ul>
-    <h1>Suit of Pentacles</h1>
-    <ul class="flex flex-wrap gap-3">
+    <h1 class="text-white mb-5">Suit of Pentacles</h1>
+    <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in suitPentacles"
         :key="card.title + '-' + card.image"

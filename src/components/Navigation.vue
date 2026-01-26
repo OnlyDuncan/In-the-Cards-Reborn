@@ -37,7 +37,7 @@ watch(
   <nav
     class="w-full flex flex-col items-center justify-between gap-4 px-4 py-3"
   >
-    <span class="font-semibold">In the Cards</span>
+    <span class="font-semibold text-white">In the Cards</span>
 
     <div class="flex flex-row gap-3">
       <button
