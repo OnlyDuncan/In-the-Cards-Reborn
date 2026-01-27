@@ -10,7 +10,6 @@ if (!store.isInitialized && !store.loading) {
   store.fetchCards();
 }
 
-const libraryCards = computed(() => store.libraryCards);
 const majorArcanaCards = computed(() => store.majorArcanaCards);
 const suitCups = computed(() => store.suitCups);
 const suitWands = computed(() => store.suitWands);
