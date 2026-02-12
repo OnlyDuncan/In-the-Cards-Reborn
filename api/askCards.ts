@@ -27,7 +27,11 @@ export default async function handler(req: any, res: any) {
 
   const reqBody = (req.body ?? {}) as AskCardsRequestBody;
 
-  if (!isNonEmptyString(reqBody.question) || !isStringArray(reqBody.cards) || reqBody.cards.length === 0) {
+  if (
+    !isNonEmptyString(reqBody.question) ||
+    !isStringArray(reqBody.cards) ||
+    reqBody.cards.length === 0
+  ) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
@@ -73,10 +77,30 @@ export default async function handler(req: any, res: any) {
     }
 
     const data = JSON.parse(rawText) as any;
-    const answer: unknown = data?.output_text;
+
+    // Prefer output_text, but fall back to extracting text from the output array.
+    let answer: unknown = data?.output_text;
 
     if (!isNonEmptyString(answer)) {
-      return res.status(500).json({ error: "OpenAI response missing output_text" });
+      const output = Array.isArray(data?.output) ? data.output : [];
+      const textParts: string[] = [];
+
+      for (const item of output) {
+        const contents = Array.isArray(item?.content) ? item.content : [];
+        for (const c of contents) {
+          if (typeof c?.text === "string") textParts.push(c.text);
+        }
+      }
+
+      const joined = textParts.join("\n").trim();
+      if (joined) answer = joined;
+    }
+
+    if (!isNonEmptyString(answer)) {
+      return res.status(500).json({
+        error: "OpenAI response missing output_text",
+        details: data,
+      });
     }
 
     return res.status(200).json({ answer });
