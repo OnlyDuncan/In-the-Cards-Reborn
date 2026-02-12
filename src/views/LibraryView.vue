@@ -29,7 +29,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col m-5 justify-center ">
-    <h1 class="text-white mb-5">Major Arcana</h1>
+    <h1 class="text-white mb-5 gothic">Major Arcana</h1>
     <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in majorArcanaCards"
@@ -39,7 +39,7 @@ onMounted(() => {
         <CardContents v-bind="card" :flippable="false" :initiallyFlipped="true" />
       </li>
     </ul>
-    <h1 class="text-white mb-5">Suit of Swords</h1>
+    <h1 class="text-white mb-5 gothic">Suit of Swords</h1>
     <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in suitSwords"
@@ -49,7 +49,7 @@ onMounted(() => {
          <CardContents v-bind="card" :flippable="false" :initiallyFlipped="true" />
       </li>
     </ul>
-    <h1 class="text-white mb-5">Suit of Cups</h1>
+    <h1 class="text-white mb-5 gothic">Suit of Cups</h1>
     <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in suitCups"
@@ -59,7 +59,7 @@ onMounted(() => {
          <CardContents v-bind="card" :flippable="false" :initiallyFlipped="true" />
       </li>
     </ul>
-    <h1 class="text-white mb-5">Suit of Wands</h1>
+    <h1 class="text-white mb-5 gothic">Suit of Wands</h1>
     <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in suitWands"
@@ -69,7 +69,7 @@ onMounted(() => {
          <CardContents v-bind="card" :flippable="false" :initiallyFlipped="true" />
       </li>
     </ul>
-    <h1 class="text-white mb-5">Suit of Pentacles</h1>
+    <h1 class="text-white mb-5 gothic">Suit of Pentacles</h1>
     <ul class="flex flex-wrap gap-5">
       <li
         v-for="card in suitPentacles"

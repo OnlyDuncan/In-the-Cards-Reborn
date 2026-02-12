@@ -36,7 +36,7 @@ const handleUserQuestion = async () => {
     const cardTitles = spread.value.map((c: TarotCard) => c.title);
     console.log("Card titles payload:", cardTitles);
 
-    const res = await fetch("http://127.0.0.1:5050/api/askCards", {
+    const res = await fetch("/api/askCards", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -63,22 +63,26 @@ const handleUserQuestion = async () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center md:flex-row justify-center gap-8">
+  <div class="flex flex-col items-center md:flex-row justify-center gap-8 p-20">
     <CardContents v-for="(card, i) in spread" :key="i" v-bind="card" @flipped="flippedCount++" />
   </div>
 
-  <div class="flex justify-center mt-6 button-gold mx-auto w-40">
+  <div class="flex justify-center mt-6 button-gold mx-auto w-40 mb-10 spider">
     <button @click="reshuffle">Reshuffle</button>
   </div>
 
-  <div v-if="revealPrompt" class="flex justify-center mx-auto mt-5 gap-3">
-    <input v-model="userQuestion" class="pl-3" placeholder="Ask your question..." />
-    <div v-if="aiAnswer" class="mt-6 text-center">
-        <strong>AI Answer:</strong>
-        <p>{{ aiAnswer }}</p>
+  <div v-if="revealPrompt" class="flex flex-col justify-center mx-auto mt-5 gap-3 p-30">
+    <div class="flex justify-center">
+      <input v-model="userQuestion" class="pl-3 px-5 py-2 crimson" placeholder="What's on your mind?" />
     </div>
-    <div class="button-gold">
-        <button @click="handleUserQuestion" class="m-3">Ask the Cards</button>
+    <div class="flex justify-center">
+      <div class="button-gold mb-10">
+          <button @click="handleUserQuestion" class="m-3 spider">Ask the Cards</button>
+      </div>
+    </div>
+    <div v-if="aiAnswer" class="mt-6 text-white text-center p-20 spider">
+        <strong>The Cards Speak:</strong>
+        <p class="crimson">{{ aiAnswer }}</p>
     </div>
   </div>
 </template>

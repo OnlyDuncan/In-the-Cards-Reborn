@@ -37,11 +37,11 @@ watch(
   <nav
     class="w-full flex flex-col items-center justify-between gap-4 px-4 py-3"
   >
-    <span class="font-semibold text-white">In the Cards</span>
+    <span class="font-semibold text-white gothic">In the Cards</span>
 
     <div class="flex flex-row gap-3">
       <button
-        class="px-3 py-2 button-gold rounded hover:bg-gray-50"
+        class="px-3 py-2 button-gold rounded hover:bg-gray-50 spider"
         type="button"
         @click="router.push('/about')"
       >
@@ -49,6 +49,7 @@ watch(
       </button>
 
       <Dropdown
+        class="spider"
         label=""
         :options="spreadOptions"
         v-model="selectedSpread"
@@ -56,7 +57,7 @@ watch(
       />
 
       <button
-        class="px-3 py-2 button-gold rounded hover:bg-gray-50"
+        class="px-3 py-2 button-gold rounded hover:bg-gray-50 spider"
         type="button"
         @click="router.push('/library')"
       >

@@ -19,6 +19,18 @@
     color: white;
 }
 
+.gothic {
+    font-family: "UnifrakturMaguntia", serif;
+}
+
+.spider {
+    font-family: "IM Fell English SC", serif;
+}
+
+.crimson {
+    font-family: "Crimson Text", serif;
+}
+
 /* Buttons */
 .button-gold {
     background-color: #c6a664;

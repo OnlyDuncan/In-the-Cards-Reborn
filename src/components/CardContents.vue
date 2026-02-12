@@ -57,9 +57,9 @@ const flipCard = () => {
   <!-- Modal -->
   <div v-if="isOpen" class="modal-overlay" @click.self="isOpen = false">
     <div class="modal-content flex flex-col">
-      <h1 class="text-white mb-5 flex justify-center">{{ title }}</h1>
+      <h1 class="text-white mb-5 flex justify-center spider">{{ title }}</h1>
       <img :src="`${image}`" :class="orientationClass" class="modalImage" alt="Tarot Card" />
-      <p class="text-white m-5">{{ meaning }}</p>
+      <p class="text-white m-5 crimson">{{ meaning }}</p>
     </div>
   </div>
 </template>
